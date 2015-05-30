@@ -18,6 +18,8 @@ mongoose.connect('mongodb://localhost/angry_tenant')
 
 //Log all request to console
 app.use(morgan('dev'));
+
+//handle application/json content type
 app.use(bodyParser.json());
 
 
