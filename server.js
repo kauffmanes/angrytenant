@@ -39,6 +39,7 @@ apiRouter.use(function(req, res, next) {
 	next();
 });
 
+//for pinging
 apiRouter.get('/', function(req, res) {
 	res.json({message : 'API is up and running'});
 });
