@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 
 
 //basic route for the home page
-app.use(express.static(__dirname + '/public/src'))
+app.use(express.static(__dirname + '/public/target'))
 
 //create api router
 var apiRouter = express.Router();
