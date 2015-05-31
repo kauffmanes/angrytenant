@@ -1,18 +1,13 @@
 angular.module('components')
 
-	.factory('UserService', ['$http', function ($http) {
+	.factory('UserService', ['$resource', function ($resource) {
 
-		return {
+		return $resource('api/users/:id', { id : '@_id' }, {
 
-			create : function (data) {
-				return $http({
-					method: 'POST',
-					url : 'api/users',
-					data : data,
-					headers: { 'Content-Type': 'application/json' }
-				});
+			create : {
+				method  : 'POST'
 			}
 			
-		};
+		});
 
 	}]);

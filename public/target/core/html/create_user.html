@@ -1,7 +1,16 @@
-<form ng-submit="createUser()">
-	<input type="text" ng-model="formData.firstName" placeholder="first name">
-	<input type="text" ng-model="formData.lastName" placeholder="last name">
-	<input type="text" ng-model="formData.email" placeholder="email">
-	<input type="text" ng-model="formData.phone" placeholder="phone">
-	<button>Submit</button>
-</form>
+<div class="bg-image">
+
+	<h1 class="text-center">Create User</h1>
+	<div class="container-fluid">
+		<form ng-submit="createUser()" class="form-horizontal">
+			<input type="text" required="required" class="form-control" ng-model="formData.firstName" placeholder="first name">
+			<input type="text" required="required" class="form-control" ng-model="formData.lastName" placeholder="last name">
+			<input type="email" required="required" class="form-control" ng-model="formData.email" placeholder="email">
+			<input type="text" required="required" class="form-control" ng-model="formData.phone" placeholder="phone">
+			<input type="password" required="required" class="form-control" ng-model="formData.password" placeholder="password">
+			<input type="password" required="required" class="form-control" ng-keyup="validate()" ng-model="confirm" placeholder="confirm password">
+			<button class="btn btn-primary btn-block" ng-disabled="disabled">Submit</button>
+		</form>
+		<p class="new-user-error">{{ error }}</p>
+	</div>
+</div>

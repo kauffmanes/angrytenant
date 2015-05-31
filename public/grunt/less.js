@@ -2,7 +2,7 @@ module.exports = {
 
 	dev : {
 	    files: {
-	        "target/css/base.css" : "src/core/less/base.less"
+	        "target/core/css/base.css" : "src/core/less/base.less"
 	    }
 	}
 

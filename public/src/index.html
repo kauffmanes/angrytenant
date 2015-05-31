@@ -8,8 +8,13 @@
 
 <title>App</title>
 
+<link rel="stylesheet" type="text/css" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="core/css/base.css">
+
 </head>
 <body>
+
+<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="alert.close()">{{ alert.msg }}</alert>
 
 <div ui-view></div>
 
@@ -17,12 +22,14 @@
 <script type="text/javascript" src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="./bower_components/angular/angular.min.js"></script>
 <script type="text/javascript" src="./bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script type="text/javascript" src="./bower_components/angular-resource/angular-resource.min.js"></script>
+<script type="text/javascript" src="./bower_components/angular-bootstrap/angular-bootstrap.js"></script>
 <script type="text/javascript" src="./core/js/app.js"></script>
 <script type="text/javascript" src="./components/components.js"></script>
 <script type="text/javascript" src="./core/js/controllers/CreateUserController.js"></script>
-<script type="text/javascript" src="./core/js/controllers/LoginController.js"></script>
 <script type="text/javascript" src="./components/services/LoginService.js"></script>
 <script type="text/javascript" src="./components/services/UserService.js"></script>
+<script type="text/javascript" src="./components/services/AlertService.js"></script>
 
 </body>
 </html>
