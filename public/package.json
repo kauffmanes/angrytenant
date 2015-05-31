@@ -1,0 +1,22 @@
+{
+  "name": "TenTicket",
+  "version": "0.0.0",
+  "description": "A ticketing system for tenants.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "tenants",
+    "landlord"
+  ],
+  "author": "Emily Kauffman & Vu Chu",
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "load-grunt-config": "~0.17.1",
+    "grunt-contrib-copy": "~0.8.0",
+    "grunt-contrib-clean": "~0.6.0",
+    "grunt-contrib-less": "~1.0.1"
+  }
+}

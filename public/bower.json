@@ -1,0 +1,26 @@
+{
+  "name": "TenTicket",
+  "version": "0.0.0",
+  "authors": [
+    "Emily <kauffmanes@gmail.com>"
+  ],
+  "description": "A ticketing system for tenants.",
+  "main": "app.js",
+  "keywords": [
+    "tenants",
+    "landlord"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.0",
+    "angular-ui-router": "~0.2.15"
+  }
+}

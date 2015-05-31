@@ -1,0 +1,7 @@
+default:
+  - dev
+
+dev:
+  - clean:target
+  - copy:dev
+  - less:dev
