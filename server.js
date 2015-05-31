@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 
 
 //basic route for the home page
-app.use(express.static(__dirname + '/public/src'))
+app.use(express.static(__dirname + '/public/target'))
 
 app.listen(port);
 console.log('Starting server at port ' + port);
