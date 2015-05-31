@@ -1,60 +1,16 @@
 var express    = require('express');
-var app        = express();
-var bodyParser = require('body-parser')
-var morgan     = require('morgan')
-var mongoose   = require('mongoose')
-var port       = process.env.PORT || 8080
-var User       = require('../models/user')
+var mongoose   = require('mongoose');
+var User       = require('../models/user');
 var jwt        = require('jsonwebtoken');
 
-var superSecret = 'ThisIsAVerySecretiveSecret';
+var loginRouter = require('./login');
 
 mongoose.connect('mongodb://localhost/angry_tenant')
 
 //create api router
 var apiRouter = express.Router();
 
-apiRouter.route('/login')
-         .post(function(req, res) {
-		User.findOne({email : req.body.email})
-		    .select("email password")
-		    .exec(function(err, user){
-		
-		    	if (err) res.status(500).send(err);
-			
-		        if (!user) {
-				res.status(400).json({
-					success: false,
-					message: "Wrong email!"
-				});
-			} else if (user) {
-				
-				var validPassword = user.comparePassword(req.body.password);
-				
-				if (!validPassword) {
-					res.status(400).json({
-						success: false,
-						message: "Wrong password"
-					});	
-				} else {
-					
-					var token = jwt.sign({
-						email: user.email,
-					}, superSecret, {
-						expiresInMinutes: 1440		
-					});
-					
-					res.json({
-						success: true,
-						message: 'Enjoy your token',
-						token: token
-					});
-					console.log("Success fully logged in");
-				}
-			}
-		    });
-	 });
-
+apiRouter.use('/login', loginRouter);
 apiRouter.use(function(req, res, next) {
 	//do logging
 	console.log('Somebody just came to our app!');
@@ -62,6 +18,7 @@ apiRouter.use(function(req, res, next) {
 	if (!req.body) console.log('request body is undefined');
 	next();
 });
+
 //REST API for the app
 //for pinging
 apiRouter.get('/', function(req, res) {

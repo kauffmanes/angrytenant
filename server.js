@@ -2,12 +2,10 @@ var express    = require('express');
 var app        = express();
 var bodyParser = require('body-parser')
 var morgan     = require('morgan')
-var mongoose   = require('mongoose')
 var port       = process.env.PORT || 8080
-var User       = require('./api/models/user')
-var jwt        = require('jsonwebtoken');
+
+//import router for our public REST API
 var apiRouter  = require('./api/routers/api')
-var superSecret = 'ThisIsAVerySecretiveSecret';
 
 //configure our app to handle CORS requests
 app.use(function(req, res, next) {
@@ -17,17 +15,18 @@ app.use(function(req, res, next) {
 	next();
 });
 
-//mongoose.connect('mongodb://localhost/angry_tenant')
-
 //Log all request to console
 app.use(morgan('dev'));
 
 //handle application/json content type
 app.use(bodyParser.json());
 
-
-//basic route for the home page
+//route for the web view of the app
 app.use(express.static(__dirname + '/public/target'))
 
+//set up api route
+app.use('/api', apiRouter);
+
+//start the server
 app.listen(port);
 console.log('Starting server at port ' + port);
