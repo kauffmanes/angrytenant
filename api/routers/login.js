@@ -1,6 +1,7 @@
 var express = require('express');
 var User    = require('../models/user');
 var jwt     = require('jsonwebtoken');
+var Token   = require('../util/token');
 
 var superSecret = 'ThisIsAVerySerectiveSecret';
 
@@ -32,13 +33,13 @@ loginRouter.post('/', function(req, res) {
 		}
 		
 		//user successfully logged in. Creating a token for them....
-		var token = jwt.sign({
+		var token = Token.sign({
 			_id: user._id,
 			email: user.email
-		}, superSecret, {
-			expiresInMinutes: 1440 //expire in 24 hours
+		}, {
+			expiresInMinutes: 1440
 		});
-		
+
 		res.status(200).json({
 			success: true,
 			message: 'Enjoy your token',

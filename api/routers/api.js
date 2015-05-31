@@ -2,6 +2,7 @@ var express    = require('express');
 var mongoose   = require('mongoose');
 var User       = require('../models/user');
 var jwt        = require('jsonwebtoken');
+var Token      = require('../util/token');
 
 var loginRouter = require('./login');
 
@@ -11,12 +12,54 @@ mongoose.connect('mongodb://localhost/angry_tenant')
 var apiRouter = express.Router();
 
 apiRouter.use('/login', loginRouter);
+
+//Registering new account doesn't require authentication
+apiRouter.post('/users', function(req, res) {
+	var user = new User();
+	user.firstName = req.body.firstName;
+	user.lastName  = req.body.lastName;
+	user.email     = req.body.email;
+	user.phone     = req.body.phone;
+	user.password  = req.body.password;
+
+	//save user
+	user.save(function(err) {
+		if (err) return res.status(400).send(err);
+		return User.findById(user._id, 
+				    function(err, user) {
+					res.status(201).json(user);
+				});
+	});
+});
+
+//make sure users are authenticated before they can make any call
+//to the rest of the api
 apiRouter.use(function(req, res, next) {
 	//do logging
 	console.log('Somebody just came to our app!');
+	
+	var token = req.headers['x-access-token'];
+	
+	//decode token
+	//TODO: move this code into a util library
+	if (token) {
+		var decoded = Token.verify(token);
+		if (!decoded) {
+			return res.status(403).json({
+				success: false,
+				message: 'Failed to authenticate token'
+			});
+		}	
+		req.decoded = decoded;
+		next();
+	
+	} else {
+		return res.status(403).json({
+			success: false,
+			message: 'No token provided'
+		});
+	}
 
-	if (!req.body) console.log('request body is undefined');
-	next();
 });
 
 //REST API for the app
@@ -25,31 +68,8 @@ apiRouter.get('/', function(req, res) {
 	res.json({message : 'API is up and running'});
 });
 
-apiRouter.route('/users')
-	 .post(function(req, res) {
-	 	var user = new User();
 
-		user.firstName = req.body.firstName;
-		user.lastName  = req.body.lastName;
-		user.email     = req.body.email;
-		user.phone     = req.body.phone;
-		user.password  = req.body.password;
-
-		//save user
-		user.save(function(err) {
-			if (err) {
-			        if (err.code = 11000) return res.status(400).send(err);
-				
-				else return res.status(400).send(err);
-				
-			}
-			
-			 return User.findById(user._id, function(err, user) {
-					res.status(201).json(user);
-				});
-		});
-	 })
-	 .get(function(req, res) {
+apiRouter.get('/users',function(req, res) {
 	 	User.find(function(err, users) {
 			if (err) return res.status(500).send(err);
 			return res.status(200).json(users);
