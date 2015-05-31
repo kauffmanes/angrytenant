@@ -5,6 +5,9 @@ var morgan     = require('morgan')
 var mongoose   = require('mongoose')
 var port       = process.env.PORT || 8080
 var User       = require('./api/models/user')
+var jwt        = require('jsonwebtoken');
+
+var superSecret = 'ThisIsAVerySecretiveSecret';
 
 //configure our app to handle CORS requests
 app.use(function(req, res, next) {
@@ -24,15 +27,51 @@ app.use(bodyParser.json());
 
 
 //basic route for the home page
-/*
-app.get('/', function(req, res) {
-	res.send('Welcome to the home page');
-});*/
-
 app.use(express.static(__dirname + '/public/src'))
 
 //create api router
 var apiRouter = express.Router();
+
+apiRouter.route('/login')
+         .post(function(req, res) {
+		User.findOne({email : req.body.email})
+		    .select("email password")
+		    .exec(function(err, user){
+		
+		    	if (err) res.status(500).send(err);
+			
+		        if (!user) {
+				res.status(400).json({
+					success: false,
+					message: "Wrong email!"
+				});
+			} else if (user) {
+				
+				var validPassword = user.comparePassword(req.body.password);
+				
+				if (!validPassword) {
+					res.status(400).json({
+						success: false,
+						message: "Wrong password"
+					});	
+				} else {
+					
+					var token = jwt.sign({
+						email: user.email,
+					}, superSecret, {
+						expiresInMinutes: 1440		
+					});
+					
+					res.json({
+						success: true,
+						message: 'Enjoy your token',
+						token: token
+					});
+					console.log("Success fully logged in");
+				}
+			}
+		    });
+	 });
 
 apiRouter.use(function(req, res, next) {
 	//do logging
@@ -60,13 +99,15 @@ apiRouter.route('/users')
 		//save user
 		user.save(function(err) {
 			if (err) {
-				if (err.code = 11000) return res.status(400).json({success: false, message: 'A user With That emmail already exists. '});
+			        if (err.code = 11000) return res.status(400).send(err);
+				
 				else return res.status(400).send(err);
+				
 			}
 			
-			User.findById(user._id, function(err, user) {
-				res.status(201).json(user);
-			});
+			 return User.findById(user._id, function(err, user) {
+					res.status(201).json(user);
+				});
 		});
 	 })
 	 .get(function(req, res) {
