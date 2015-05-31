@@ -24,9 +24,12 @@ app.use(bodyParser.json());
 
 
 //basic route for the home page
+/*
 app.get('/', function(req, res) {
 	res.send('Welcome to the home page');
-});
+});*/
+
+app.use(express.static(__dirname + '/public/src'))
 
 //create api router
 var apiRouter = express.Router();
@@ -38,7 +41,7 @@ apiRouter.use(function(req, res, next) {
 	if (!req.body) console.log('request body is undefined');
 	next();
 });
-
+//REST API for the app
 //for pinging
 apiRouter.get('/', function(req, res) {
 	res.json({message : 'API is up and running'});
@@ -65,7 +68,22 @@ apiRouter.route('/users')
 				res.status(201).json(user);
 			});
 		});
+	 })
+	 .get(function(req, res) {
+	 	User.find(function(err, users) {
+			if (err) return res.status(500).send(err);
+			return res.status(200).json(users);
+		});
 	 });
+
+apiRouter.route('/users/id/:user_id')
+         .get(function(req, res) {
+	 	User.findById(req.params.user_id, function(err, user) {
+			if (err) return res.status(500).send(err);
+			return res.status(200).json(user);
+		});
+	 });
+
 
 app.use('/api', apiRouter);
 
