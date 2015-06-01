@@ -6,8 +6,8 @@ angular.module('at', ['ui.router', 'components', 'ngResource', 'ui.bootstrap'])
 
 		$stateProvider.state('dashboard', {
 			url         : '/dashboard',
-			templateUrl : 'core/html/dashboard.html'
-			//controller  : 'HomeController' 
+			templateUrl : 'core/html/dashboard.html',
+			controller  : 'DashboardController' 
 		});
 
 		//Page not found
@@ -33,6 +33,18 @@ angular.module('at', ['ui.router', 'components', 'ngResource', 'ui.bootstrap'])
 			url         : '/existing-login',
 			templateUrl : 'core/html/existing_login.html',
 			controller  : 'ExistingUserLoginController'
+		});
+
+	})
+
+	.run(function ($rootScope, $location, $state, Auth) {
+
+		$rootScope.$on('$stateChangeStart', function () {
+			
+			if (Auth.isLoggedIn() == false) {
+				$location.path('login');
+			}
+
 		});
 
 	});

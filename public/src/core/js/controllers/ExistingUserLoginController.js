@@ -1,6 +1,6 @@
 angular.module('at')
 
-	.controller('ExistingUserLoginController', ['$scope', '$state', 'LoginService', function ($scope, $state, LoginService) {
+	.controller('ExistingUserLoginController', ['$scope', '$state', 'Auth', function ($scope, $state, Auth) {
 
 		$scope.formData = {};
 
@@ -8,9 +8,8 @@ angular.module('at')
 
 		$scope.login = function () {
 
-			LoginService.login($scope.formData).$promise.then(function (res) {
+			Auth.login($scope.formData.email, $scope.formData.password).then(function (res) {
 				$state.go('dashboard');
-				console.log(res);
 			}, function (err) {
 
 				$scope.errors = err.data.message;
