@@ -25,7 +25,7 @@
   border-bottom-right-radius: 5px !important;
 }
 button {
-  margin-top: 10px;
+  margin: 10px 0;
   height: 50px;
   font-size: 2rem;
   text-transform: uppercase;
@@ -54,7 +54,7 @@ h3 {
 .bg-image button:first-child {
   margin-bottom: 4vh;
 }
-.new-user-error {
+.error {
   text-align: center;
   width: 100%;
   color: #fff;

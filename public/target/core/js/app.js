@@ -31,8 +31,8 @@ angular.module('at', ['ui.router', 'components', 'ngResource', 'ui.bootstrap'])
 
 		$stateProvider.state('existing-login', {
 			url         : '/existing-login',
-			templateUrl : 'core/html/existing_login.html'
-			//controller  : 'ExistingUserLoginController'
+			templateUrl : 'core/html/existing_login.html',
+			controller  : 'ExistingUserLoginController'
 		});
 
 	});
