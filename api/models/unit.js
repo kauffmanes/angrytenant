@@ -1,10 +1,9 @@
 var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
-var UserSchema = require('./user').schema;
 
 //Unit Schema
 var UnitSchema = new Schema({
-	address: {type: String, required: true},
+	address: {type: Schema.Types.ObjectId, ref: 'Address'},
 	landlord: {type: Schema.Types.ObjectId, ref: 'User'},
         tenants: [{type:Schema.Types.ObjectId, ref: 'User'}]
 });

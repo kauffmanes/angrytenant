@@ -2,6 +2,7 @@ var express    = require('express');
 var mongoose   = require('mongoose');
 var User       = require('../models/user');
 var Unit       = require('../models/unit');
+var Address    = require('../models/address');
 var jwt        = require('jsonwebtoken');
 var Token      = require('../util/token');
 
@@ -97,23 +98,38 @@ apiRouter.route('/units')
 	 .post(function(req, res) {
 		var landlord = req.login;
 		
-		var unit = new Unit();
-		unit.address = req.body.address;
-		unit.landlord = landlord._id;
+		var address = new Address();
+		address.line1 = req.body.address.line1;
+		address.line2 = req.body.address.line2;
+		address.state = req.body.address.state;
+		address.city  = req.body.address.city;
+		address.zip   = req.body.address.zip;
 
-		unit.save(function(err) {
-			if (err) return res.status(400).send(err);
+		address.save(function(err) {
+			if (err) {
+				res.status(400).send(err);
+			} else { 
 			
-			return Unit.findById(unit._id)
-				   .populate('landlord')
-				   .exec(function(err, unit) {
-						if (err) {
-						  res.status(500).send(err);
-						} else {
-						  res.status(201).json(unit);
-						}
-					});
-		});		
+				var unit = new Unit();
+				unit.address = address._id;
+				unit.landlord = landlord._id;
+				
+				unit.save(function(err) {
+					if (err) return res.status(400).send(err);
+					
+					return Unit.findById(unit._id)
+						   .populate('landlord', 'email')
+						   .populate('address', 'line1 line2 state city zip')
+						   .exec(function(err, unit) {
+							if (err) {
+								res.status(500).send(err);
+							} else {
+								res.status(201).json(unit);
+							}
+						   });
+				});
+			}
+		});
 	 });
 
 
