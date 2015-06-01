@@ -1,6 +1,7 @@
 var express    = require('express');
 var mongoose   = require('mongoose');
 var User       = require('../models/user');
+var Unit       = require('../models/unit');
 var jwt        = require('jsonwebtoken');
 var Token      = require('../util/token');
 
@@ -49,10 +50,12 @@ apiRouter.use(function(req, res, next) {
 				success: false,
 				message: 'Failed to authenticate token'
 			});
-		}	
-		req.decoded = decoded;
-		next();
-	
+		}
+
+		User.findById(decoded._id, function(err, user){
+					req.login = user;
+					next();
+				});
 	} else {
 		return res.status(403).json({
 			success: false,
@@ -68,7 +71,12 @@ apiRouter.get('/', function(req, res) {
 	res.json({message : 'API is up and running'});
 });
 
+apiRouter.get('/me', function(req, res) {
+	var login = req.login;
+	res.status(200).send(req.login);
+});
 
+//users REST API
 apiRouter.get('/users',function(req, res) {
 	 	User.find(function(err, users) {
 			if (err) return res.status(500).send(err);
@@ -83,6 +91,26 @@ apiRouter.route('/users/id/:user_id')
 			return res.status(200).json(user);
 		});
 	 });
+
+//units REST API
+apiRouter.route('/units')
+	 .post(function(req, res) {
+		var landlord = req.login;
+		
+		var unit = new Unit();
+		unit.address = req.body.address;
+		unit.landlord = landlord;
+
+		unit.save(function(err) {
+			if (err) return res.status(400).send(err);
+			
+			return Unit.findById(unit._id, function(err, unit) {
+					if (err) console.log(err);
+					res.status(201).json(unit);
+				});	
+		});		
+	 });
+
 
 module.exports = apiRouter;
 
