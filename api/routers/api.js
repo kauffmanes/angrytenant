@@ -130,8 +130,34 @@ apiRouter.route('/units')
 				});
 			}
 		});
-	 });
+	 })
+	.get(function(req, res) {
+		var landlordEmail = req.query.email;
+		if (landlordEmail) {
+			console.log('landlord email is ' + landlordEmail);
+			Unit.find()
+			     //.populate('address', 'line1 line2 state city zip')
+			     .populate({path : 'landlord', match: {email: landlordEmail}, select: 'email'})
+                             .exec(function(err, units) {
+				if(err) {
+				  res.status(500).send(err);
+				} else {
+				  res.status(200).json(units);
+				}
+			     });		
+		} else {
+			Unit.find()
+			     //.populate('address', 'line1 line2 state city zip')
+			     .populate('landlord', 'email')
+   			     .exec(function(err, units){
+				if (err) {
+				   res.status(500).send(err);
+				} else {
+				   res.status(200).json(units);
+				}
+			     });
+		}	
 
-
+	});
 module.exports = apiRouter;
 
