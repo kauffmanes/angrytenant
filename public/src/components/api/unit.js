@@ -6,6 +6,11 @@ angular.module('components')
 
 			create : {
 				method  : 'POST'
+			},
+
+			query : {
+				method : 'GET',
+				isArray : true
 			}
 			
 		});
