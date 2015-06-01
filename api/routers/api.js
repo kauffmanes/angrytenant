@@ -99,15 +99,20 @@ apiRouter.route('/units')
 		
 		var unit = new Unit();
 		unit.address = req.body.address;
-		unit.landlord = landlord;
+		unit.landlord = landlord._id;
 
 		unit.save(function(err) {
 			if (err) return res.status(400).send(err);
 			
-			return Unit.findById(unit._id, function(err, unit) {
-					if (err) console.log(err);
-					res.status(201).json(unit);
-				});	
+			return Unit.findById(unit._id)
+				   .populate('landlord')
+				   .exec(function(err, unit) {
+						if (err) {
+						  res.status(500).send(err);
+						} else {
+						  res.status(201).json(unit);
+						}
+					});
 		});		
 	 });
 

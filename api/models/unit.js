@@ -5,8 +5,8 @@ var UserSchema = require('./user').schema;
 //Unit Schema
 var UnitSchema = new Schema({
 	address: {type: String, required: true},
-	landord: {type: Schema.Types.ObjectId, ref: 'User'},
-        tenants: [UserSchema]
+	landlord: {type: Schema.Types.ObjectId, ref: 'User'},
+        tenants: [{type:Schema.Types.ObjectId, ref: 'User'}]
 });
 
 UnitSchema.methods.setLandlord = function(user) {
