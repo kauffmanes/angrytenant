@@ -136,7 +136,7 @@ apiRouter.route('/units')
 		if (landlordEmail) {
 			console.log('landlord email is ' + landlordEmail);
 			Unit.find()
-			     //.populate('address', 'line1 line2 state city zip')
+			     .populate('address', 'line1 line2 state city zip')
 			     .populate({path : 'landlord', match: {email: landlordEmail}, select: 'email'})
                              .exec(function(err, units) {
 				if(err) {
@@ -147,7 +147,7 @@ apiRouter.route('/units')
 			     });		
 		} else {
 			Unit.find()
-			     //.populate('address', 'line1 line2 state city zip')
+			     .populate('address', 'line1 line2 state city zip')
 			     .populate('landlord', 'email')
    			     .exec(function(err, units){
 				if (err) {
@@ -159,5 +159,6 @@ apiRouter.route('/units')
 		}	
 
 	});
+
 module.exports = apiRouter;
 
