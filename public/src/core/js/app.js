@@ -43,7 +43,7 @@ angular.module('at', ['ui.router', 'components', 'ngResource', 'ui.bootstrap'])
 		$rootScope.$on('$stateChangeStart', function () {
 			
 			if (Auth.isLoggedIn() == false) {
-				$location.path('/login');
+				$location.path('login');
 			}
 
 		});
