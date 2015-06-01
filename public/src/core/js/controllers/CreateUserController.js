@@ -13,17 +13,17 @@ angular.module('at')
 			if ($scope.formData.password !== $scope.confirm) {
 
 				$scope.disabled = true;
-				$scope.error = 'Your passwords do not match';
+				$scope.errors = 'Your passwords do not match';
 
 			} else if ($scope.formData.password.length < 6) {
 
 				$scope.disabled = true;
-				$scope.error = 'Your password must be at least 6 characters.';
+				$scope.errors = 'Your password must be at least 6 characters.';
 
 			} else {
 
 				$scope.disabled = false;
-				$scope.error = '';
+				$scope.errors = '';
 
 			}
 		};
@@ -35,7 +35,7 @@ angular.module('at')
 				$state.go('dashboard');
 				console.log(res);
 			}, function (err) {
-				alert(err.data.message);
+				$scope.errors = err.data.message;
 			});
 
 		};
