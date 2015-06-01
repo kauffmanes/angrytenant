@@ -39,12 +39,18 @@ angular.module('at', ['ui.router', 'components', 'ngResource', 'ui.bootstrap'])
 
 	.run(function ($rootScope, $location, $state, Auth) {
 
+
 		$rootScope.$on('$stateChangeStart', function () {
 			
 			if (Auth.isLoggedIn() == false) {
-				$location.path('login');
+				$location.path('/login');
 			}
 
 		});
+
+		$rootScope.logout = function () {
+			Auth.logout();
+			$state.go('login');
+		};
 
 	});

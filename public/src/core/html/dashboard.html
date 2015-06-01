@@ -1,33 +1,42 @@
-<div class="bg-image">
+<nav class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-2"></div>
+			<div class="col-xs-8 navbar-header">
+		        <h4 class="text-center">AngryTenant</h4>
+			</div>
+			<div class="col-xs-2"><i ng-click="logout()" class="fa fa-sign-out fa-2x icon"></i></div>
+		</div>
+	</div>
+</nav>
 
-	<tabset>
+<tabset>
 
-		<tab heading="Landlord">
-			
-			<div class="container-fluid">
+	<tab heading="Landlord">
+		
+		<div class="container-fluid">
 
-				<div class="block">
-					<p>Add Unit</p>
-				</div>
-
-				<div class="block">
-					<p>View Tickets</p>
-				</div>
-
-				<div class="block">
-					<p>View Units</p>
-				</div>
-				
+			<div class="block">
+				<p>Add Unit</p>
 			</div>
 
-		</tab>
+			<div class="block">
+				<p>View Tickets</p>
+			</div>
 
-		<tab heading="Tenant">
-			Tenant
-		</tab>
+			<div class="block">
+				<p>View Units</p>
+			</div>
+			
+		</div>
 
-	</tabset>
+	</tab>
 
-	<button class="btn btn-primary btn-block" ng-click="logout()">Log Out</button>
+	<tab heading="Tenant">
+		Tenant
+	</tab>
 
-</div>
+</tabset>
+
+<button class="btn btn-primary btn-block" ng-click="logout()">Log Out</button>
+
