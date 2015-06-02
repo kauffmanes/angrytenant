@@ -34,6 +34,13 @@ angular.module('at', ['ui.router', 'components', 'ngResource', 'ui.bootstrap'])
 			templateUrl : 'core/html/existing_login.html',
 			controller  : 'ExistingUserLoginController'
 		});
+
+		$stateProvider.state('submit-ticket', {
+			url         : '/submit-ticket',
+			templateUrl : 'core/html/submit_ticket.html',
+			controller  : 'SubmitTicketController'
+		});
+		
 	})
 
 	.config(function ($httpProvider) {
