@@ -64,7 +64,7 @@ angular.module('components')
 
 	}])
 
-	.factory('AuthInterceptor', ['$q', '$state', 'AuthToken', function ($q, $state, AuthToken) {
+	.factory('AuthInterceptor', ['$q', '$location', 'AuthToken', function ($q, $location, AuthToken) {
 		
 		var interceptorFactory = {};
 
@@ -82,7 +82,7 @@ angular.module('components')
 
 			if (response.status == 403) {
 				AuthToken.setToken();
-				$state.go('login');
+				$location.path('login');
 			}
 
 			return $q.reject(response);

@@ -1,6 +1,6 @@
 angular.module('at', ['ui.router', 'components', 'ngResource', 'ui.bootstrap'])
 
-	.config(function ($stateProvider, $urlRouterProvider) {
+	.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
 
 		$urlRouterProvider.otherwise('/dashboard');
 
@@ -34,7 +34,12 @@ angular.module('at', ['ui.router', 'components', 'ngResource', 'ui.bootstrap'])
 			templateUrl : 'core/html/existing_login.html',
 			controller  : 'ExistingUserLoginController'
 		});
+	})
 
+	.config(function ($httpProvider) {
+
+		$httpProvider.interceptors.push('AuthInterceptor');
+	
 	})
 
 	.run(function ($rootScope, $location, $state, Auth) {
