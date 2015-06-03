@@ -1,13 +1,13 @@
 angular.module('at')
 
-	.controller('DashboardController', ['$scope', '$state', 'Auth', 'UserService',
-		function ($scope, $state, Auth, UserService) {
+	.controller('DashboardController', ['$scope', '$state', 'Auth', 'User',
+		function ($scope, $state, Auth, User) {
 
 		$scope.users = [];
 
 		$scope.getUsers = function () {
 
-			UserService.query().$promise.then(function (res) {
+			User.query().$promise.then(function (res) {
 
 				$scope.users = res;
 

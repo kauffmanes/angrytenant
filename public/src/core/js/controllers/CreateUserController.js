@@ -1,7 +1,7 @@
 angular.module('at')
 
-	.controller('CreateUserController', ['$scope', '$state', '$q', 'UserService', 'AlertService',
-		function ($scope, $state, $q, UserService, AlertService) {
+	.controller('CreateUserController', ['$scope', '$state', '$q', 'User',
+		function ($scope, $state, $q, User) {
 
 		//Form Data
 		$scope.formData = {};
@@ -31,7 +31,7 @@ angular.module('at')
 		//Creates a new user
 		$scope.createUser = function () {
 
-			UserService.create($scope.formData).$promise.then(function (res) {
+			User.create($scope.formData).$promise.then(function (res) {
 				$state.go('dashboard');
 				console.log(res);
 			}, function (err) {

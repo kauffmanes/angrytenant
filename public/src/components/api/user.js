@@ -1,6 +1,6 @@
 angular.module('components')
 
-	.factory('UserService', ['$resource', function ($resource) {
+	.factory('User', ['$resource', function ($resource) {
 
 		return $resource('api/users/:id', { id : '@_id' }, {
 

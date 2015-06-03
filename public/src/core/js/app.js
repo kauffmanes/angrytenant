@@ -46,6 +46,12 @@ angular.module('at', ['ui.router', 'components', 'ngResource', 'ui.bootstrap'])
 			templateUrl : 'core/html/view_tenant_ticket.html',
 			controller  : 'ViewTenantTicketController'
 		});
+
+		$stateProvider.state('add-unit', {
+			url         : '/add-unit',
+			templateUrl : 'core/html/add_unit.html',
+			controller  : 'AddUnitController'
+		});
 		
 	})
 

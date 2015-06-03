@@ -1,0 +1,43 @@
+<div class="bg-image">
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-2"><i ui-sref="dashboard" class="fa fa-angle-left fa-2x icon"></i></div>
+				<div class="col-xs-8 navbar-header">
+			        <h4 class="text-center">AngryTenant</h4>
+				</div>
+				<div class="col-xs-2"></div>
+			</div>
+		</div>
+	</nav>
+	<div class="page">
+		<h1 class="text-center">Add Unit</h1>
+		<div class="container-fluid">
+			<form ng-submit="submit()" class="form-horizontal">
+				<div class="container-fluid">
+					<div class="form-group">
+						<label for="sa1">Street Address 1</label>
+						<input id="sa1" ng-model="formData.address.line1" class="form-control">
+					</div>
+					<div class="form-group">
+						<label for="sa2">Street Address 2</label>
+						<input id="sa2" ng-model="formData.address.line2" class="form-control">
+					</div>
+					<div class="form-group">
+						<label for="city">City</label>
+						<input id="city" ng-model="formData.address.city" class="form-control">
+					</div>
+					<div class="form-group">
+						<label for="subject">State</label>
+						<input id="subject" ng-model="formData.address.state" class="form-control">
+					</div>
+					<div class="form-group">
+						<label for="zip">Zip Code</label>
+						<input id="zip" ng-model="formData.address.zipcode" class="form-control">
+					</div>
+				</div>
+				<button class="btn btn-primary btn-block">Submit</button>
+			</form>
+		</div>
+	</div><!-- / .page -->
+</div>
