@@ -29,13 +29,13 @@ angular.module('components')
 			}
 		};
 
-		// authFactory.getUser = function () {
-		// 	if (AuthToken.getToken()) {
-		// 		return $http.get('/api/');
-		// 	} else {
-		// 		return $q.reject({ message : 'User has no token.' });
-		// 	}
-		// };
+		authFactory.getUser = function () {
+			if (AuthToken.getToken()) {
+				return $http.get('/api/me');
+			} else {
+				return $q.reject({ message : 'User has no token.' });
+			}
+		};
 
 		return authFactory;
 
