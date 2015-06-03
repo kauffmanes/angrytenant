@@ -5,3 +5,11 @@ dev:
   - clean:target
   - copy:dev
   - less:dev
+
+karma:
+  - karma:core
+
+phonegap:
+  - clean:target
+  - copy:phonegap
+  - less:dev
