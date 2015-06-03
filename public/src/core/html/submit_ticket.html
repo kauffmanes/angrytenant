@@ -1,26 +1,43 @@
 <div class="bg-image">
-
-	<h1 class="text-center">Submit Ticket</h1>
-	<div class="container-fluid">
-		<form ng-submit="submit()" class="form-horizontal">
-			<div class="container-fluid">
-				<div class="form-group">
-					<label for="category">Choose a category.</label>
-					<select id="category" class="form-control" ng-model="formData.category">
-						<option ng-repeat="category in categories">{{ category }}</option>
-					</select>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-2"><i ui-sref="dashboard" class="fa fa-angle-left fa-2x icon"></i></div>
+				<div class="col-xs-8 navbar-header">
+			        <h4 class="text-center">AngryTenant</h4>
 				</div>
-				<div class="form-group">
-					<label for="priority">Choose a priority level.</label>
-					<select id="priority" class="form-control" ng-model="formData.priority">
-						<option ng-repeat="priority in priorities">{{ priority }}</option>
-					</select>
-				</div>
-				<div class="form-group">
-					<textarea ng-model="formData.message" class="form-control" required="required" placeholder="Enter a brief description."></textarea>
-				</div>
+				<div class="col-xs-2"></div>
 			</div>
-			<button class="btn btn-primary btn-block" ng-disabled="disabled">Submit</button>
-		</form>
-	</div>
+		</div>
+	</nav>
+	<div class="page">
+		<h1 class="text-center">Submit Ticket</h1>
+		<div class="container-fluid">
+			<form ng-submit="submit()" class="form-horizontal">
+				<div class="container-fluid">
+					<div class="form-group">
+						<label for="category">Choose a category:</label>
+						<select id="category" class="form-control" ng-model="formData.category">
+							<option ng-repeat="category in categories">{{ category }}</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="priority">Choose a priority level:</label>
+						<select id="priority" class="form-control" ng-model="formData.priority">
+							<option ng-repeat="priority in priorities">{{ priority }}</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="subject">Ticket Subject:</label>
+						<input id="subject" ng-model="formData.subject" class="form-control">
+					</div>
+					<div class="form-group">
+						<label for="message">Enter a brief description:</label>
+						<textarea id="message" ng-model="formData.message" class="form-control" required="required"></textarea>
+					</div>
+				</div>
+				<button class="btn btn-primary btn-block" ng-disabled="disabled">Submit</button>
+			</form>
+		</div>
+	</div><!-- / .page -->
 </div>

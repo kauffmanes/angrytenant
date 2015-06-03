@@ -40,6 +40,12 @@ angular.module('at', ['ui.router', 'components', 'ngResource', 'ui.bootstrap'])
 			templateUrl : 'core/html/submit_ticket.html',
 			controller  : 'SubmitTicketController'
 		});
+
+		$stateProvider.state('view-tenant-ticket', {
+			url         : '/view-tenant-ticket',
+			templateUrl : 'core/html/view_tenant_ticket.html',
+			controller  : 'ViewTenantTicketController'
+		});
 		
 	})
 

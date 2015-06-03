@@ -1,0 +1,19 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-2"><i ui-sref="dashboard" class="fa fa-angle-left fa-2x icon"></i></div>
+			<div class="col-xs-8 navbar-header">
+		        <h4 class="text-center">AngryTenant</h4>
+			</div>
+			<div class="col-xs-2"></div>
+		</div>
+	</div>
+</nav>
+<div class="container-fluid page">
+	<a ng-repeat="ticket in tickets">
+		<div class="block">
+			<p class="heading" ng-style="style(ticket.priority)">{{ ticket.subject }}</p>
+			<p class="content">Click to view ticket information.</p>
+		</div>
+	</a>
+</div>

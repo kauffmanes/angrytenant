@@ -21,10 +21,12 @@
 				<p class="content">Click here to add a new unit.</p>
 			</div>
 
-			<div class="block">
-				<p class="heading"><i class="fa fa-ticket"></i>  View Tickets</p>
-				<p class="content">You currently have 0 open tickets.</p>
-			</div>
+			<a ui-sref="">
+				<div class="block">
+					<p class="heading"><i class="fa fa-ticket"></i>  View Tickets</p>
+					<p class="content">You currently have 0 open tickets.</p>
+				</div>
+			</a>
 
 			<div class="block">
 				<p class="heading"><i class="fa fa-building"></i>  View Units</p>
@@ -36,7 +38,23 @@
 	</tab>
 
 	<tab heading="Tenant">
-		Tenant
+		<div class="container-fluid">
+
+			<a ui-sref="submit-ticket">
+				<div class="block">
+					<p class="heading"><i class="fa fa-plus"></i>  Submit A Ticket</p>
+					<p class="content">Click here to submit a ticket.</p>
+				</div>
+			</a>
+
+			<a ui-sref="view-tenant-ticket">
+				<div class="block">
+					<p class="heading"><i class="fa fa-ticket"></i>  View Open Tickets</p>
+					<p class="content">You currently have 0 open tickets.</p>
+				</div>
+			</a>
+			
+		</div>
 	</tab>
 
 	<tab heading="Admin">
