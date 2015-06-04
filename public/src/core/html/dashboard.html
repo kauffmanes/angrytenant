@@ -30,10 +30,12 @@
 				</div>
 			</a>
 
-			<div class="block">
-				<p class="heading"><i class="fa fa-building"></i>  View Units</p>
-				<p class="content">You currently have 0 units.</p>
-			</div>
+			<a ui-sref="view-units">
+				<div class="block">
+					<p class="heading"><i class="fa fa-building"></i>  View Units</p>
+					<p class="content">You currently have {{ units.length }} units.</p>
+				</div>
+			</a>
 			
 		</div>
 

@@ -1,8 +1,7 @@
 angular.module('at')
 
-	.controller('DashboardController', ['$scope', '$state', 'Auth', 'User', 'Unit',
-		function ($scope, $state, Auth, User, Unit) {
-
+	.controller('ViewUnitsController', ['$scope', 'Auth', 'Unit', function ($scope, Auth, Unit) {
+		
 		$scope.units = [];
 
 		//Gets the logged in user
@@ -24,5 +23,5 @@ angular.module('at')
 			});
 
 		};
-
+		
 	}]);
