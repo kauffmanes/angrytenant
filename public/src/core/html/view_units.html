@@ -10,10 +10,13 @@
 	</div>
 </nav>
 <div class="container-fluid page">
-	<a ng-repeat="unit in units">
-		<div class="block">
-			<p class="heading">{{ unit.address.line1 }}, {{ unit.address.line2 }}</p>
-			<p class="content">Click to view ticket information.</p>
-		</div>
-	</a>
+
+	<div ng-repeat="unit in units">
+		<a ui-sref="view-unit({ id : unit._id })">
+			<div class="block">
+				<p class="heading">{{ unit.address.line1 }}<span ng-if="unit.address.line2">,</span> {{ unit.address.line2 }}</p>
+				<p class="content">Click to view unit information.</p>
+			</div>
+		</a>
+	</div>
 </div>

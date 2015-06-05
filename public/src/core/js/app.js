@@ -58,6 +58,12 @@ angular.module('at', ['ui.router', 'components', 'ngResource', 'ui.bootstrap'])
 			templateUrl : 'core/html/view_units.html',
 			controller  : 'ViewUnitsController'
 		});
+
+		$stateProvider.state('view-unit', {
+			url         : '/view-units/:id',
+			templateUrl : 'core/html/unit.html',
+			controller  : 'UnitController'
+		});
 		
 	})
 

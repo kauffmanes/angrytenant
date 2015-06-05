@@ -1,0 +1,18 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-2"><i ui-sref="view-units" class="fa fa-angle-left fa-2x icon"></i></div>
+			<div class="col-xs-8 navbar-header">
+		        <h4 class="text-center">AngryTenant</h4>
+			</div>
+			<div class="col-xs-2"></div>
+		</div>
+	</div>
+</nav>
+<div class="container-fluid page">
+	<div class="content">
+		<p><strong>Landlord:</strong><br>{{ unit.landlord.email }}</p>
+		<p><strong>Address:</strong><br>{{ unit.address.line1 }}<br>{{ unit.address.line2 }}<br ng-if="unit.address.line2">{{ unit.address.city }}, {{ unit.address.state}}, {{ unit.address.zip }}</p>
+		<p><strong>Tenants:</strong><br><span ng-repeat="tenant in unit.address.tenants">{{ tenant }}</span></p>
+	</div>
+</div>
