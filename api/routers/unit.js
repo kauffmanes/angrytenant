@@ -76,6 +76,19 @@ unitRouter.route('/')
 
 	});
 
+unitRouter.route('/id/:unit_id')
+          .get(function(req, res) {
+              Unit.findById(req.params.unit_id)
+                  .populate('lanlord', 'email')
+                  .populate('address', 'line1 line2 state city zip')
+                  .populate('tenants', 'email')
+                  .exec(function(err, unit) {
+                    if (err) return res.status(500).send(err);
+                    if (!unit) return res.status(400).json({success: false, message: 'Entity Not Found'});
+                    res.status(200).json(unit);
+                  });
+          });
+
 unitRouter.route('/id/:unit_id/tenants')
 		 .post(function(req, res) {
 			Unit.findById(req.params.unit_id, function(err, unit) {
@@ -149,7 +162,14 @@ unitRouter.route('/id/:unit_id/tickets')
                     });
                 }
             });
-          });
+          })
+    .get(function(req, res) {
+        Unit.findById(req.params.unit_id, function(err, unit){
+            if (err) return res.status(500).send(err);
+            if (!unit) return res.status(400).json({success: false, message: 'Entity not found'});
+            res.status(201).json(unit.tickets);
+        });
+    });
 
 module.exports = unitRouter;
 
