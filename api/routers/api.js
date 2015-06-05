@@ -3,6 +3,7 @@ var mongoose   = require('mongoose');
 var User       = require('../models/user');
 var UnitRouter = require('./unit');
 var Address    = require('../models/address');
+var Ticket     = require('../models/ticket');
 var jwt        = require('jsonwebtoken');
 var Token      = require('../util/token');
 

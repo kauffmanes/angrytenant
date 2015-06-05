@@ -21,6 +21,7 @@ loginRouter.post('/', function(req, res) {
 		}
 		
 		if (!user) {
+            console.log('user not found');
 			res.status(400).json({success: false, message: 'Incorrect combination of email/password'});
 			return;
 		}
@@ -28,6 +29,7 @@ loginRouter.post('/', function(req, res) {
 		var isValidPassword = user.comparePassword(req.body.password);
 		
 		if (!isValidPassword) {
+            console.log('invalid password');
 			res.status(400).json({success: false, message: 'Incorrect combination of email/password'});
 			return;
 		}
