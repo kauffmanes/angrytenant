@@ -1,7 +1,8 @@
 var express    = require('express');
 var mongoose   = require('mongoose');
 var User       = require('../models/user');
-var UnitRouter = require('./unit');
+var unitRouter = require('./unit');
+var ticketRouter = require('./ticket');
 var Address    = require('../models/address');
 var jwt        = require('jsonwebtoken');
 var Token      = require('../util/token');
@@ -94,7 +95,10 @@ apiRouter.route('/users/id/:user_id')
 	 });
 
 //add unit api 
-apiRouter.use('/units', UnitRouter);
+apiRouter.use('/units', unitRouter);
+
+//add ticket api
+apiRouter.use('/tickets', ticketRouter);
 
 module.exports = apiRouter;
 

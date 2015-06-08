@@ -2,6 +2,7 @@ var express    = require('express');
 var mongoose   = require('mongoose');
 var User       = require('../models/user');
 var Unit       = require('../models/unit');
+var Ticket     = require('../models/ticket');
 var Address    = require('../models/address');
 
 //create unit router
@@ -75,7 +76,20 @@ unitRouter.route('/')
 
 	});
 
-	unitRouter.route('/id/:unit_id/tenants')
+unitRouter.route('/id/:unit_id')
+          .get(function(req, res) {
+              Unit.findById(req.params.unit_id)
+                  .populate('lanlord', 'email')
+                  .populate('address', 'line1 line2 state city zip')
+                  .populate('tenants', 'email')
+                  .exec(function(err, unit) {
+                    if (err) return res.status(500).send(err);
+                    if (!unit) return res.status(400).json({success: false, message: 'Entity Not Found'});
+                    res.status(200).json(unit);
+                  });
+          });
+
+unitRouter.route('/id/:unit_id/tenants')
 		 .post(function(req, res) {
 			Unit.findById(req.params.unit_id, function(err, unit) {
 				if (err) {
@@ -99,6 +113,63 @@ unitRouter.route('/')
 				}
 			});
 		  });
+
+unitRouter.route('/id/:unit_id/tickets')
+          .post(function(req, res) {
+            Unit.findById(req.params.unit_id, function(err, unit) {
+                if (err) {
+                    res.status(500).send(err);
+                } else if(!unit) {
+                    res.status(400).json({
+                        success: false,
+                        message: 'Entity Not Found'
+                    });
+                } else {
+                    var submitter = req.login;
+
+                    var ticket = new Ticket();
+                    ticket.category = req.body.category;
+                    ticket.priority = req.body.priority;
+                    ticket.subject  = req.body.subject;
+                    ticket.description = req.body.description;
+                    ticket.state = 'New';
+                    ticket.submittedBy = submitter._id;
+
+                    ticket.save(function(err) {
+                        if (err) {
+                            res.status(500).send(err);
+                        } else {
+                            unit.tickets.push(ticket._id);
+                            unit.save(function(err) {
+                                if (err) {
+                                    res.status(500).send(err);
+                                } else {
+                                    Unit.findById(unit._id)
+                                        .populate('landlord', 'email')
+                                        .populate('address',  'line1 line2 state city zip')
+                                        .populate('tenants', 'email')
+                                        .populate('tickets', 'category priority subject description state submittedBy')
+                                        .exec(function(err, unit) {
+                                            if (err) {
+                                                res.status(500).send(err);
+                                            } else {
+                                                res.status(201).json(unit);
+                                            }
+                                        });
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+          })
+    .get(function(req, res) {
+        Unit.findById(req.params.unit_id, function(err, unit){
+            if (err) return res.status(500).send(err);
+            if (!unit) return res.status(400).json({success: false, message: 'Entity not found'});
+            res.status(201).json(unit.tickets);
+        });
+    });
 
 module.exports = unitRouter;
 
