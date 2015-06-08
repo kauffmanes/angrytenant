@@ -19,6 +19,14 @@ angular.module('components')
 					field       : 'id',
 					subDocument : 'tenants'
 				}
+			},
+
+			submitTicket : {
+				method : 'POST',
+				params : {
+					field : 'id',
+					subDocument : 'tickets'
+				}
 			}
 			
 		});
