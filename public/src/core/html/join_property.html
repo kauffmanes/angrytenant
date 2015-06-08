@@ -1,0 +1,22 @@
+<div class="bg-image">
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-2"><i ui-sref="dashboard" class="fa fa-angle-left fa-2x icon"></i></div>
+				<div class="col-xs-8 navbar-header">
+			        <h4 class="text-center">AngryTenant</h4>
+				</div>
+				<div class="col-xs-2"></div>
+			</div>
+		</div>
+	</nav>
+<div class="bg-image page">
+	<h1 class="text-center">Join Property</h1>
+	<div class="container-fluid">
+		<form ng-submit="submit()" class="form-horizontal">
+			<input type="text" required="required" class="form-control" ng-model="formData.unitId" placeholder="Unit ID">
+			<button class="btn btn-primary btn-block">Submit</button>
+		</form>
+		<p class="error">{{ errors }}</p>
+	</div>
+</div>

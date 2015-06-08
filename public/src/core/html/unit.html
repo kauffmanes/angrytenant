@@ -10,9 +10,10 @@
 	</div>
 </nav>
 <div class="container-fluid page">
-	<div class="content">
+	<div class="info">
 		<p><strong>Landlord:</strong><br>{{ unit.landlord.email }}</p>
+		<p><strong>Unit ID:</strong><br>{{ unit._id }}</p>
 		<p><strong>Address:</strong><br>{{ unit.address.line1 }}<br>{{ unit.address.line2 }}<br ng-if="unit.address.line2">{{ unit.address.city }}, {{ unit.address.state}}, {{ unit.address.zip }}</p>
-		<p><strong>Tenants:</strong><br><span ng-repeat="tenant in unit.address.tenants">{{ tenant }}</span></p>
+		<p><strong>Number of Tenants:</strong><br>{{ unit.tenants.length }}</p>
 	</div>
 </div>

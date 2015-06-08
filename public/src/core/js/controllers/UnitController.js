@@ -16,7 +16,7 @@ angular.module('at')
 			Unit.query({ email : $scope.landlord.email }).$promise.then(function (res) {
 
 				$scope.unit = _.findWhere(res, { _id : $stateParams.id });
-				console.log('hey');
+				console.log($scope.unit);
 			
 			});
 

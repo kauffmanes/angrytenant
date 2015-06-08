@@ -64,6 +64,12 @@ angular.module('at', ['ui.router', 'components', 'ngResource', 'ui.bootstrap'])
 			templateUrl : 'core/html/unit.html',
 			controller  : 'UnitController'
 		});
+
+		$stateProvider.state('join-property', {
+			url         : '/join-property',
+			templateUrl : 'core/html/join_property.html',
+			controller  : 'JoinPropertyController'
+		});
 		
 	})
 
